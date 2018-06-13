@@ -50,7 +50,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             FilterChain chain) throws ServletException, IOException {
         logger.debug("enter filter");
         String authHeader = request.getHeader(this.tokenHeader);
-        //added by wanghuan 2017-12-28
+
         String url = request.getRequestURI();
         if (authHeader != null && authHeader.startsWith(tokenPrefix)) {
             final String authToken = authHeader.substring(tokenPrefix.length()); // The part after "Bearer "
