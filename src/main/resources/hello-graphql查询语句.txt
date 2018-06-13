@@ -1,0 +1,13 @@
+{"query":"{pettypes {name,id} }"}
+
+{"query":"{vets {id firstName lastName specialties{id name}}}"}
+
+{"query":"{specialties {id name}}"}
+
+{"query":"{pets {id name birthDate type{id name} visits{totalCount, visits{id date description}}}}"}
+
+{"query":"{pet(id:1) {id name birthDate type{id name} visits{totalCount, visits{id date description}}}}"}
+
+{"query":"{owner(id:1) {id firstName}}"}
+
+{"query":"{owners {id firstName lastName address telephone city pets{id name}}}"}
