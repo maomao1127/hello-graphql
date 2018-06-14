@@ -34,7 +34,7 @@ public class PetClinicGraphQLErrorHandler implements GraphQLErrorHandler {
                     });
         }
 
-        return errors;
+        return clientErrors;
     }
 
     protected List<GraphQLError> filterGraphQLErrors(List<GraphQLError> errors) {

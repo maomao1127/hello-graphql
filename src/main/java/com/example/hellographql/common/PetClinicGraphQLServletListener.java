@@ -19,7 +19,6 @@ public class PetClinicGraphQLServletListener implements GraphQLServletListener {
 
     @Override
     public RequestCallback onRequest(HttpServletRequest request, HttpServletResponse response) {
-        logger.info("onRequest");
         return new RequestCallback() {
             @Override
             public void onSuccess(HttpServletRequest request, HttpServletResponse response) {
@@ -48,7 +47,7 @@ public class PetClinicGraphQLServletListener implements GraphQLServletListener {
 
             @Override
             public void onError(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data, List<GraphQLError> errors, Object extensions) {
-                logger.info("{}.response#{\"query\":{}, \"variables\":{}, \"data\":{},\"errors\":{}}", operationName, query, variables, data, errors);
+                logger.info("{}.response#{\"data\":{},\"errors\":{}}", operationName, data, errors);
             }
 
             @Override
