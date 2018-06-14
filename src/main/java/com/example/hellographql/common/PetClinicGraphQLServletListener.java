@@ -5,19 +5,21 @@ import graphql.servlet.GraphQLContext;
 import graphql.servlet.GraphQLServletListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-// @Component
+@Component
 public class PetClinicGraphQLServletListener implements GraphQLServletListener {
 
     private final static Logger logger = LoggerFactory.getLogger(PetClinicGraphQLServletListener.class);
 
     @Override
     public RequestCallback onRequest(HttpServletRequest request, HttpServletResponse response) {
+        logger.info("onRequest");
         return new RequestCallback() {
             @Override
             public void onSuccess(HttpServletRequest request, HttpServletResponse response) {
@@ -41,12 +43,12 @@ public class PetClinicGraphQLServletListener implements GraphQLServletListener {
         return new OperationCallback() {
             @Override
             public void onSuccess(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data, Object extensions) {
-                logger.info("{}.response#{\"operationName\":{}, \"query\":{}, \"variables\":{}, \"data\":{}}", operationName, operationName, query, variables, data);
+                // logger.info("{}.response#{\"operationName\":{}, \"query\":{}, \"variables\":{}, \"data\":{}}", operationName, operationName, query, variables, data);
             }
 
             @Override
             public void onError(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data, List<GraphQLError> errors, Object extensions) {
-                logger.info("{}.response#{\"operationName\":{}, \"query\":{}, \"variables\":{}, \"data\":{},\"errors\":{}}", operationName, operationName, query, variables, data, errors.toString());
+                logger.info("{}.response#{\"query\":{}, \"variables\":{}, \"data\":{},\"errors\":{}}", operationName, query, variables, data, errors);
             }
 
             @Override
