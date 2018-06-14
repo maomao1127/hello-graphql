@@ -44,12 +44,12 @@
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
-            <version>4.0.0</version>
+            <version>4.2.0</version>
         </dependency>
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-tools</artifactId>
-            <version>4.3.0</version>
+            <version>5.1.0</version>
         </dependency>
 
         <!-- to embed GraphiQL tool -->

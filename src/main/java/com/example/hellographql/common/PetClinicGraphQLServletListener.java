@@ -5,7 +5,6 @@ import graphql.servlet.GraphQLContext;
 import graphql.servlet.GraphQLServletListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,17 +40,17 @@ public class PetClinicGraphQLServletListener implements GraphQLServletListener {
     public OperationCallback onOperation(GraphQLContext context, String operationName, String query, Map<String, Object> variables) {
         return new OperationCallback() {
             @Override
-            public void onSuccess(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data) {
+            public void onSuccess(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data, Object extensions) {
                 logger.info("{}.response#{\"operationName\":{}, \"query\":{}, \"variables\":{}, \"data\":{}}", operationName, operationName, query, variables, data);
             }
 
             @Override
-            public void onError(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data, List<GraphQLError> errors) {
+            public void onError(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data, List<GraphQLError> errors, Object extensions) {
                 logger.info("{}.response#{\"operationName\":{}, \"query\":{}, \"variables\":{}, \"data\":{},\"errors\":{}}", operationName, operationName, query, variables, data, errors.toString());
             }
 
             @Override
-            public void onFinally(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data) {
+            public void onFinally(GraphQLContext context, String operationName, String query, Map<String, Object> variables, Object data, Object extensions) {
 
             }
         };

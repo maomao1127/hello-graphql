@@ -16,8 +16,7 @@
 package com.example.hellographql.common.type;
 
 import graphql.language.StringValue;
-import graphql.schema.Coercing;
-import graphql.schema.GraphQLScalarType;
+import graphql.schema.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -52,8 +51,9 @@ public class DateScalarType extends GraphQLScalarType {
             public String serialize(Object input) {
                 if (input instanceof Date) {
                     return createIsoDateFormat().format((Date) input);
+                } else {
+                    throw new CoercingSerializeException("无法序列化Date");
                 }
-                return null;
             }
 
             @Override
@@ -68,7 +68,7 @@ public class DateScalarType extends GraphQLScalarType {
                         logger.error(format("Could not parse date from String '%s': %s", input, e.getLocalizedMessage()), e);
                     }
                 }
-                return null;
+                throw new CoercingParseValueException("无法将" + input + "解析为Date");
             }
 
             @Override
@@ -81,9 +81,10 @@ public class DateScalarType extends GraphQLScalarType {
                         return date;
                     } catch (ParseException e) {
                         logger.error(format("Could not parse date from String '%s': %s", input, e.getLocalizedMessage()), e);
+                        throw new CoercingParseLiteralException("无法将" + String.valueOf(input) + "解析为Date");
                     }
                 }
-                throw new UnsupportedOperationException("ParseLiteral in DateScalarType not implemented yet");
+                throw new CoercingParseLiteralException("无法将" + String.valueOf(input) + "解析为Date");
             }
         });
     }
