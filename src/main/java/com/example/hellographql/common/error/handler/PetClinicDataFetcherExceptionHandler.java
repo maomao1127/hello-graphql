@@ -1,7 +1,8 @@
 package com.example.hellographql.common.error.handler;
 
-import com.example.hellographql.common.PetClinicGraphQLError;
+
 import com.example.hellographql.common.error.PetClinicException;
+import com.example.hellographql.common.error.PetClinicGraphQLError;
 import graphql.ExceptionWhileDataFetching;
 import graphql.execution.DataFetcherExceptionHandler;
 import graphql.execution.DataFetcherExceptionHandlerParameters;
@@ -25,9 +26,18 @@ public class PetClinicDataFetcherExceptionHandler implements DataFetcherExceptio
         // ExecutionPath path = handlerParameters.getPath();
 
         // ExceptionWhileDataFetching error = new ExceptionWhileDataFetching(path, exception, sourceLocation);
+        PetClinicGraphQLError error = null;
+        try {
+            if ("AccessDeniedException".equals(exception.getClass().getSimpleName())) {
+                error = new PetClinicGraphQLError(99, exception.getMessage());
+            } else {
+                // 直接使用PetClinicException的话，无法屏蔽掉exception字段
+                error = new PetClinicGraphQLError(((PetClinicException) exception).getCode(), exception.getMessage());
+            }
+        } catch (Exception e) {
+            error = new PetClinicGraphQLError(100, "未知的错误");
+        }
 
-        // 直接使用PetClinicException的话，无法屏蔽掉exception字段
-        PetClinicGraphQLError error = new PetClinicGraphQLError(((PetClinicException) exception).getCode(), exception.getMessage());
         handlerParameters.getExecutionContext().addError(error, handlerParameters.getPath());
         log.warn(error.getMessage(), exception);
     }

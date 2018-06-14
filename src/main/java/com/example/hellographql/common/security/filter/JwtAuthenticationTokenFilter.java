@@ -1,7 +1,7 @@
 package com.example.hellographql.common.security.filter;
 
 import com.alibaba.fastjson.JSON;
-import com.example.hellographql.common.PetClinicGraphQLError;
+import com.example.hellographql.common.error.PetClinicGraphQLError;
 import com.example.hellographql.common.security.service.JwtTokenService;
 import graphql.GraphQLError;
 import org.slf4j.Logger;

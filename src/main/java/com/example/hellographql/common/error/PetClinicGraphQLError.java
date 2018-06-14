@@ -1,10 +1,11 @@
-package com.example.hellographql.common;
+package com.example.hellographql.common.error;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import graphql.ErrorType;
 import graphql.GraphQLError;
 import graphql.language.SourceLocation;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -57,5 +58,13 @@ public class PetClinicGraphQLError implements GraphQLError {
                 "code=" + code +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    @Override
+    public Map<String, Object> toSpecification() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("code", code);
+        map.put("message", message);
+        return map;
     }
 }
